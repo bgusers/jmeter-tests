@@ -1,0 +1,6 @@
+results/*
+!.gitkeep
+
+*.jtl
+*.log
+.DS_Store
