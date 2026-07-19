@@ -5,14 +5,13 @@ pipeline {
         string(name: 'THREADS', defaultValue: '10')
         string(name: 'RAMPUP', defaultValue: '30')
         string(name: 'DURATION', defaultValue: '300')
-        string(name: 'URL', defaultValue: 'localhost')
-        string(name: 'PORT', defaultValue: '3000')
+        string(name: 'URL', defaultValue: 'localhost:3000')
         string(name: 'THROUGHPUT', defaultValue: '100')
         string(name: 'TEST_PLAN', defaultValue: 'load_test.jmx')
     }
 
     environment {
-        SSH_HOST = 'gbutuzov@213.226.128.196'
+        SSH_HOST = 'gbutuzov@213.226.127.198'
         REMOTE_DIR = "/opt/jmeter-runs/build-${BUILD_NUMBER}"
     }
 
