@@ -5,7 +5,7 @@ pipeline {
         string(name: 'THREADS', defaultValue: '10')
         string(name: 'RAMPUP', defaultValue: '30')
         string(name: 'DURATION', defaultValue: '300')
-        string(name: 'URL', defaultValue: 'localhost:3000')
+        string(name: 'URL', defaultValue: 'http://localhost:3000')
         string(name: 'THROUGHPUT', defaultValue: '100')
         string(name: 'TEST_PLAN', defaultValue: 'load_test.jmx')
     }
