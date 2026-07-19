@@ -6,6 +6,7 @@ pipeline {
         string(name: 'RAMPUP', defaultValue: '30')
         string(name: 'DURATION', defaultValue: '300')
         string(name: 'URL', defaultValue: 'localhost')
+        string(name: 'PORT', defaultValue: '3000')
         string(name: 'THROUGHPUT', defaultValue: '100')
         string(name: 'TEST_PLAN', defaultValue: 'load_test.jmx')
     }
