@@ -9,6 +9,7 @@ RAW_URL=${5:-http://localhost}
 THROUGHPUT=${6:-1}
 
 WORK_DIR=$(pwd)
+PID_FILE="${WORK_DIR}/run_jmeter.pgid"
 
 if [[ "${RAW_URL}" == *"://"* ]]; then
   PROTOCOL="${RAW_URL%%://*}"
@@ -29,8 +30,7 @@ fi
 rm -rf results/*
 mkdir -p results
 
-# Запускаем JMeter напрямую (без setsid, без &)
-/home/gbutuzov/apache-jmeter-5.6.3/bin/jmeter -n \
+setsid /home/gbutuzov/apache-jmeter-5.6.3/bin/jmeter -n \
   -t "${WORK_DIR}/test-plans/${TEST_PLAN}" \
   -q "${WORK_DIR}/properties/test.properties" \
   -Jthreads="${THREADS}" \
@@ -41,4 +41,20 @@ mkdir -p results
   -Jport="${PORT}" \
   -Jthroughput="${THROUGHPUT}" \
   -l "${WORK_DIR}/results/results.jtl" \
-  -e -o "${WORK_DIR}/results/html-report"
+  -e -o "${WORK_DIR}/results/html-report" &
+
+JMETER_PID=$!
+echo "${JMETER_PID}" > "${PID_FILE}"
+
+cleanup() {
+  rm -f "${PID_FILE}"
+
+  if kill -0 "${JMETER_PID}" 2>/dev/null; then
+    kill -TERM -- "-${JMETER_PID}" 2>/dev/null || true
+    wait "${JMETER_PID}" 2>/dev/null || true
+  fi
+}
+
+trap cleanup EXIT TERM INT HUP
+
+wait "${JMETER_PID}"
