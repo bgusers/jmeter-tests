@@ -30,7 +30,7 @@ fi
 rm -rf results/*
 mkdir -p results
 
-setsid jmeter -n \
+setsid ~/home/gbutuzov/apache-jmeter-5.6.3/bin/jmeter -n \
   -t "${WORK_DIR}/test-plans/${TEST_PLAN}" \
   -q "${WORK_DIR}/properties/test.properties" \
   -Jthreads="${THREADS}" \
